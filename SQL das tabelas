@@ -1,0 +1,130 @@
+Segue abaixo o SQL para criação das tabelas:
+
+-- Ativando extensão para UUID
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- 1. principio_ativo
+CREATE TABLE principio_ativo (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome TEXT UNIQUE NOT NULL,
+    estoque_minimo INT NOT NULL,
+    codigo_atc TEXT UNIQUE NOT NULL,
+    status TEXT NOT NULL,
+    descricao TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. industria
+CREATE TABLE industria (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome TEXT NOT NULL,
+    cnpj TEXT UNIQUE NOT NULL
+);
+
+-- 3. medicamento
+CREATE TABLE medicamento (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome_fantasia TEXT NOT NULL,
+    principio_ativo_id UUID REFERENCES principio_ativo(id),
+    industria_id UUID REFERENCES industria(id),
+    preco_compra NUMERIC NOT NULL,
+    preco_venda NUMERIC NOT NULL
+);
+
+-- 4. filial
+CREATE TABLE filial (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome TEXT NOT NULL,
+    endereco TEXT NOT NULL
+);
+
+-- 5. estoque
+CREATE TABLE estoque (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    principio_ativo_id UUID REFERENCES principio_ativo(id),
+    filial_id UUID REFERENCES filial(id),
+    quantidade INT NOT NULL,
+    ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. estoque_medicamento
+CREATE TABLE estoque_medicamento (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    medicamento_id UUID REFERENCES medicamento(id),
+    filial_id UUID REFERENCES filial(id),
+    quantidade INT NOT NULL,
+    ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 7. cotacao
+CREATE TABLE cotacao (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    principio_ativo_id UUID REFERENCES principio_ativo(id),
+    industria_id UUID REFERENCES industria(id),
+    preco NUMERIC NOT NULL,
+    data_cotacao DATE NOT NULL
+);
+
+-- 8. compra
+CREATE TABLE compra (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    industria_id UUID REFERENCES industria(id),
+    valor_total NUMERIC NOT NULL
+);
+
+-- 9. nota_fiscal
+CREATE TABLE nota_fiscal (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    compra_id UUID REFERENCES compra(id),
+    medicamento_id UUID REFERENCES medicamento(id),
+    filial_id UUID REFERENCES filial(id),
+    quantidade INT NOT NULL,
+    preco_unitario NUMERIC NOT NULL
+);
+
+-- 10. funcionario
+CREATE TABLE funcionario (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome TEXT NOT NULL,
+    cargo TEXT NOT NULL,
+    salario_base NUMERIC NOT NULL,
+    comissao_percentual NUMERIC NOT NULL
+);
+
+-- 11. cliente
+CREATE TABLE cliente (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome TEXT NOT NULL,
+    telefone TEXT,
+    cpf TEXT UNIQUE NOT NULL
+);
+
+-- 12. venda
+CREATE TABLE venda (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    cliente_id UUID REFERENCES cliente(id),
+    funcionario_id UUID REFERENCES funcionario(id),
+    filial_id UUID REFERENCES filial(id),
+    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valor_total NUMERIC NOT NULL
+);
+
+-- 13. item_venda
+CREATE TABLE item_venda (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    venda_id UUID REFERENCES venda(id),
+    medicamento_id UUID REFERENCES medicamento(id),
+    quantidade INT NOT NULL,
+    preco_unitario NUMERIC NOT NULL
+);
+
+-- 14. promocao
+CREATE TABLE promocao (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    medicamento_id UUID REFERENCES medicamento(id) UNIQUE,
+    preco_promocional NUMERIC NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL
+);
