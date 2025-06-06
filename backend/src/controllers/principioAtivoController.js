@@ -24,11 +24,13 @@ exports.getById = async (req, res) => {
 
 // Criar novo
 exports.create = async (req, res) => {
+    console.log('REQ BODY:', req.body);
     try {
         const novo = await PrincipioAtivo.create(req.body);
         res.status(201).json(novo);
     } catch (err) {
         res.status(400).json({ error: 'Erro ao criar princípio ativo.', details: err.errors });
+        console.error('Erro ao criar princípio ativo:', err);
     }
 };
 
