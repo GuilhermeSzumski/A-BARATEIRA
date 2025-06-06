@@ -1,4 +1,4 @@
-const PrincipioAtivo = require('../models/principioAtivoModels.js');
+const PrincipioAtivo = require('../models/principioAtivoModel.js');
 const { Op } = require('sequelize');
 
 // Listar todos
