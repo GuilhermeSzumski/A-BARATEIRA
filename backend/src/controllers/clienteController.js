@@ -15,7 +15,7 @@ exports.getAllClientes = async (req, res) => {
 // Buscar cliente por ID
 exports.getClienteById = async (req, res) => {
     try {
-        const cliente = await Cliente.findById(req.params.id);
+        const cliente = await Cliente.findByPk(req.params.id);
         if (!cliente) {
             return res.status(404).json({ message: 'Cliente não encontrado' });
         }

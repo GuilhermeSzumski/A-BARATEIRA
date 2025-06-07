@@ -1,6 +1,7 @@
 const express = require('express');
 const principioAtivoRoutes = require('./src/routes/principioAtivoRoute.js');
 const clienteRoutes = require('./src/routes/clienteRoute.js');
+const industriaRoutes = require('./src/routes/industriaRoute.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ app.use(express.json());
 // Rotas
 app.use('/principios-ativos', principioAtivoRoutes);
 app.use('/clientes', clienteRoutes);
+app.use('/industrias', industriaRoutes);
 
 // Rota raiz
 app.get('/', (req, res) => {
@@ -20,4 +22,5 @@ app.get('/', (req, res) => {
 // Iniciar servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Acesse a API em http://localhost:${PORT}`);
 });
