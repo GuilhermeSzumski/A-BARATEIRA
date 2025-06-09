@@ -38,13 +38,11 @@ exports.createIndustria = async (req, res) => {
 // Atualizar uma indústria existente
 exports.updateIndustria = async (req, res) => {
     try {
-        const [updatedRows] = await Industria.update(req.body, {
-            where: { id: req.params.id }
-        });
-        if (updatedRows === 0) {
+        const industriaAtualizada = await Industria.findByPk(req.params.id);
+        if (!industriaAtualizada) {
             return res.status(404).json({ message: 'Indústria não encontrada' });
         }
-        const industriaAtualizada = await Industria.findByPk(req.params.id);
+        await industriaAtualizada.update(req.body);
         res.status(200).json(industriaAtualizada);
     } catch (error) {
         res.status(400).json({ message: 'Erro ao atualizar indústria', error });
@@ -55,12 +53,11 @@ exports.updateIndustria = async (req, res) => {
 // Deletar uma indústria
 exports.deleteIndustria = async (req, res) => {
     try {
-        const deletedRows = await Industria.destroy({
-            where: { id: req.params.id }
-        });
-        if (deletedRows === 0) {
+        const industriaDeletada = await Industria.findByPk(req.params.id);
+        if (!industriaDeletada) {
             return res.status(404).json({ message: 'Indústria não encontrada' });
-        }
+        };
+        await industriaDeletada.destroy();
         res.status(200).json({ message: 'Indústria deletada com sucesso' });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao deletar indústria', error });

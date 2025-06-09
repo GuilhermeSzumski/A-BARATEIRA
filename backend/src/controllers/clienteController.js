@@ -39,14 +39,11 @@ exports.createCliente = async (req, res) => {
 // Atualizar cliente
 exports.updateCliente = async (req, res) => {
     try {
-        const clienteAtualizado = await Cliente.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
+        const clienteAtualizado = await Cliente.findByPk(req.params.id);
         if (!clienteAtualizado) {
             return res.status(404).json({ message: 'Cliente não encontrado' });
         }
+        await clienteAtualizado.update(req.body);
         res.status(200).json(clienteAtualizado);
     } catch (error) {
         res.status(400).json({ message: 'Erro ao atualizar cliente', error });
@@ -56,10 +53,11 @@ exports.updateCliente = async (req, res) => {
 // Deletar cliente
 exports.deleteCliente = async (req, res) => {
     try {
-        const clienteDeletado = await Cliente.findByIdAndDelete(req.params.id);
+        const clienteDeletado = await Cliente.findByPk(req.params.id);
         if (!clienteDeletado) {
             return res.status(404).json({ message: 'Cliente não encontrado' });
         }
+        await clienteDeletado.destroy();
         res.status(200).json({ message: 'Cliente deletado com sucesso' });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao deletar cliente', error });

@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 exports.getAll = async (req, res) => {
     try {
         const principios = await PrincipioAtivo.findAll();
-        res.json(principios);
+        res.status(200).json(principios);
     } catch (err) {
         res.status(500).json({ error: 'Erro ao buscar princípios ativos.' });
     }
