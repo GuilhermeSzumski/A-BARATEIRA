@@ -34,3 +34,10 @@ estoque
     "filial_id": "",
     "quantidade": 123
 }
+
+estoque medicamento
+{
+    "medicamento_id": "",
+    "filial_id": "",
+    "quantidade": 123
+}
