@@ -3,6 +3,8 @@ const principioAtivoRoutes = require('./src/routes/principioAtivoRoute.js');
 const clienteRoutes = require('./src/routes/clienteRoute.js');
 const industriaRoutes = require('./src/routes/industriaRoute.js');
 const medicamentoRoutes = require('./src/routes/medicamentoRoute.js');
+const filialRoutes = require('./src/routes/filialRoute.js');
+const estoqueRoutes = require('./src/routes/estoqueRoute.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +17,8 @@ app.use('/principios-ativos', principioAtivoRoutes);
 app.use('/clientes', clienteRoutes);
 app.use('/industrias', industriaRoutes);
 app.use('/medicamentos', medicamentoRoutes);
+app.use('/filiais', filialRoutes);
+app.use('/estoques', estoqueRoutes);
 
 // Rota raiz
 app.get('/', (req, res) => {

@@ -1,0 +1,36 @@
+principio ativo
+{
+    "nome": "teste",
+    "estoque_minimo": 123,
+    "codigo_atc": "teste",
+    "status": "teste",
+    "descricao": "teste"
+}
+
+industria
+{
+    "nome": "teste",
+    "cnpj": "teste"
+}
+
+medicamento
+{
+    "nome_fantasia": "teste",
+    "principio_ativo_id": "",
+    "industrias_id": "",
+    "preco_compra": 1234,
+    "preco_venda": 1234
+}
+
+filial
+{
+    "nome": "teste",
+    "endereco": "teste"
+}
+
+estoque
+{
+    "principio_ativo_id": "",
+    "filial_id": "",
+    "quantidade": 123
+}
