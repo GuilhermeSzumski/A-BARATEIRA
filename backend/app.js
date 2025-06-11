@@ -6,6 +6,7 @@ const medicamentoRoutes = require('./src/routes/medicamentoRoute.js');
 const filialRoutes = require('./src/routes/filialRoute.js');
 const estoqueRoutes = require('./src/routes/estoqueRoute.js');
 const estoqueMedicamentoRoutes = require('./src/routes/estoqueMedicamentoRoute.js');
+const cotacaoRoutes = require('./src/routes/cotacaoRoute.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.use('/medicamentos', medicamentoRoutes);
 app.use('/filiais', filialRoutes);
 app.use('/estoques', estoqueRoutes);
 app.use('/estoque-medicamentos', estoqueMedicamentoRoutes);
+app.use('/cotacoes', cotacaoRoutes);
 
 // Rota raiz
 app.get('/', (req, res) => {

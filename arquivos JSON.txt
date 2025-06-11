@@ -41,3 +41,11 @@ estoque medicamento
     "filial_id": "",
     "quantidade": 123
 }
+
+cotação
+{
+    "principio_ativo_id": "",
+    "industria_id": "",
+    "preco": 123,
+    "data_cotacao": "2025-06-25"
+}
