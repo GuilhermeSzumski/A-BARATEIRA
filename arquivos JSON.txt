@@ -49,3 +49,9 @@ cotação
     "preco": 123,
     "data_cotacao": "2025-06-25"
 }
+
+compra
+{
+    "industria_id": "",
+    "valor_total": 123
+}
