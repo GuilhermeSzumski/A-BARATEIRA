@@ -55,3 +55,12 @@ compra
     "industria_id": "",
     "valor_total": 123
 }
+
+nota fiscal
+{
+    "compra_id": "",
+    "medicamento_id": "",
+    "filial_id": "",
+    "quantidade": 123,
+    "preco_unitario": 123
+}

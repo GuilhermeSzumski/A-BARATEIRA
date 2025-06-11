@@ -1,5 +1,4 @@
 const Cliente = require('../models/clienteModel.js');
-const { Op } = require('sequelize');
 
 // Listar todos os clientes
 exports.getAllClientes = async (req, res) => {
