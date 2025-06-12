@@ -64,3 +64,11 @@ nota fiscal
     "quantidade": 123,
     "preco_unitario": 123
 }
+
+funcionario
+{
+    "nome": "teste",
+    "cargo": "teste",
+    "salario_base": 123,
+    "comissao_percentual": 123
+}
